@@ -3,22 +3,26 @@
 int main() {
     
     //identificando as variáveis
-    int torre = 1, rainha = 1, bispo = 1, numeroRainha, movimento;
+    int torre = 1, rainha = 1, bispo = 1, cavalo = 1; 
+    int numeroRainha; 
+    int movimento;
+    char movimentocavalo [8];
 
     //Introdução com menu
     printf("__________________________________________ \n");
     printf("VAMOS JOGAR XADREZ! \n");
-    printf("PEÇAS DISPONÍVEIS PARA SEREM MOVIMENTADAS: TORRE, RAINHA E BISPO\n");
+    printf("PEÇAS DISPONÍVEIS PARA SEREM MOVIMENTADAS: TORRE, RAINHA, BISPO e CAVALO\n");
     printf("ESCOLHA UMA DAS OPÇÕES PARA MOVIMENTAR\n");
 
     printf("1. TORRE:\n");
     printf("2. RAINHA:\n");
     printf("3. BISPO:\n");
+    printf("4. CAVALO:\n");
 
     printf("Digite abaixo o número da sua escolha:\n");
     scanf("%d", &movimento);
 
-    switch (movimento) {
+    switch (movimento) { //menu de escolhas do usuário
         case 1: //para a torre
             for (torre = 1; torre <= 5; torre++) {
                 printf("Torre anda uma casa para a DIREITA!\n");
@@ -47,6 +51,21 @@ int main() {
                 printf("O Bispo anda uma casa para a DIAGONAL!\n");
                 bispo++;
             }    
+            break;
+
+        case 4: //para o cavalo
+            printf("Qual direção você deseja que o cavalo ande?\n");
+            printf("CIMA, BAIXO, DIREITA ou ESQUERDA? (Digite sua resposta): ");
+            scanf("%s", movimentocavalo);
+
+            for (cavalo = 1; cavalo <= 2; cavalo++) {
+                printf("Cavalo anda para %s\n", movimentocavalo);
+            }
+                printf("Cavalo anda para a Direita\n");
+            break;
+
+        default:
+            printf("Opção inválida!\n");
             break;
     }
 
