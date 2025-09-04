@@ -1,67 +1,98 @@
 #include <stdio.h>
 
+// Funções de movimentação das peças
+void MoverTorre(int casas, char direcao[]) {
+    for (int i = 0; i < casas; i++) {
+        printf("A Torre anda uma casa para %s!\n", direcao);
+    }
+}
+
+void MoverBispo(int casas, char lado[], char direcao[]) {
+    for (int i = 0; i < casas; i++) {
+        printf("O Bispo anda uma casa para %s e para %s, na diagonal!\n", lado, direcao);
+    }
+}
+
+void MoverRainha(int casas, int diagonal, char lado[], char direcao[]) {
+    for (int i = 0; i < casas; i++) {
+        if (diagonal == 1) {
+            printf("A Rainha anda uma casa para %s e para %s, na diagonal!\n", lado, direcao);
+        } else {
+            printf("A Rainha anda uma casa para %s\n", direcao);
+        }
+    }
+}
+
+void MoverCavalo(char primeiraPerna[], char segundaPerna[]) {
+    for (int i = 0; i < 2; i++) {
+        printf("O cavalo anda uma casa para %s\n", primeiraPerna);
+    }    
+        printf("O cavalo anda uma casa formando o L para %s!\n", segundaPerna);
+
+}
+
 int main() {
-    
-    //identificando as variáveis
-    int torre = 1, rainha = 1, bispo = 1, cavalo = 1; 
-    int numeroRainha; 
-    int movimento;
-    char movimentocavalo [8];
+    int movimento, auxRainha;
+    int MovimentoTorre, MovimentoBispo, MovimentoRainha;
+    char direcaoTorre[10], direcaoBispo[10], direcaoRainha[10], direcaoCavalo[10];
+    char ladoBispo[10], ladoRainha[10], ladoCavalo[10], auxCavalo1[10];
 
-    //Introdução com menu
+    // Menu inicial
     printf("__________________________________________ \n");
-    printf("VAMOS JOGAR XADREZ! \n");
-    printf("PEÇAS DISPONÍVEIS PARA SEREM MOVIMENTADAS: TORRE, RAINHA, BISPO e CAVALO\n");
-    printf("ESCOLHA UMA DAS OPÇÕES PARA MOVIMENTAR\n");
-
-    printf("1. TORRE:\n");
-    printf("2. RAINHA:\n");
-    printf("3. BISPO:\n");
-    printf("4. CAVALO:\n");
-
-    printf("Digite abaixo o número da sua escolha:\n");
+    printf("VAMOS JOGAR XADREZ!\n");
+    printf("PEÇAS DISPONÍVEIS: TORRE, RAINHA, BISPO e CAVALO\n");
+    printf("ESCOLHA UMA DAS OPÇÕES PARA MOVIMENTAR:\n");
+    printf("1. TORRE\n2. BISPO\n3. RAINHA\n4. CAVALO\n");
+    printf("Digite sua escolha: ");
     scanf("%d", &movimento);
 
-    switch (movimento) { //menu de escolhas do usuário
-        case 1: //para a torre
-            for (torre = 1; torre <= 5; torre++) {
-                printf("Torre anda uma casa para a DIREITA!\n");
-            }    
+    switch (movimento) {
+        case 1: // Torre
+            printf("Qual direção você quer que a Torre se movimente? ");
+            scanf("%s", direcaoTorre);
+            printf("Quantas casas deseja andar com a Torre? ");
+            scanf("%d", &MovimentoTorre);
+            MoverTorre(MovimentoTorre, direcaoTorre);
             break;
 
-        case 2: //para a rainha
-            do {
-                printf("Digite o número de vezes que você quer que a Rainha ande (máx 8):\n");
-                scanf("%d", &numeroRainha);
+        case 2: // Bispo
+            printf("Qual direção você quer que o Bispo se movimente? (Esquerda/Direita) ");
+            scanf("%s", direcaoBispo);
+            printf("Qual lado você quer que o Bispo se movimente? (Cima/Baixo) ");
+            scanf("%s", ladoBispo);
+            printf("Quantas casas deseja andar com o Bispo? ");
+            scanf("%d", &MovimentoBispo);
+            MoverBispo(MovimentoBispo, ladoBispo, direcaoBispo);
+            break;
 
-                if (numeroRainha > 8) {
-                    printf("Nessa rodada o máximo que a Rainha pode andar são 8 casas.\n");
-                } 
+        case 3: // Rainha
+            printf("A Rainha se movimentará na diagonal? 1. SIM | 2. NÃO: ");
+            scanf("%d", &auxRainha);
 
-            } while (numeroRainha > 8);
-
-            for (rainha = 1; rainha <= numeroRainha; rainha++) {
-                printf("Rainha andou uma casa para a ESQUERDA!\n");
+            if (auxRainha == 1) {
+                printf("Qual o lado da diagonal? (Cima/Baixo) ");
+                scanf("%s", ladoRainha);
+                printf("Qual a direção da diagonal? (Esquerda/Direita) ");
+                scanf("%s", direcaoRainha);
+            } else {
+                printf("Qual a direção? (Esquerda/Direita) ");
+                scanf("%s", direcaoRainha);
+                ladoRainha[0] = '\0';
             }
-            break;
-        
-        case 3: //para o bispo
-            printf("Vamos andar 5 casas com o Bispo para a Diagonal, ok?\n");
-            while (bispo <= 5) {
-                printf("O Bispo anda uma casa para a DIAGONAL!\n");
-                bispo++;
-            }    
+
+            printf("Quantas casas deseja andar com a Rainha? ");
+            scanf("%d", &MovimentoRainha);
+
+            MoverRainha(MovimentoRainha, auxRainha, ladoRainha, direcaoRainha);
             break;
 
-        case 4: //para o cavalo
-            printf("Qual direção você deseja que o cavalo ande?\n");
-            printf("CIMA, BAIXO, DIREITA ou ESQUERDA? (Digite sua resposta): ");
-            scanf("%s", movimentocavalo);
+        case 4: // Cavalo
+            printf("Qual direção da primeira perna do L? (Cima/Baixo/Esquerda/Direita): ");
+            scanf("%s", ladoCavalo);
+            printf("Qual direção da segunda perna do L? (Cima/Baixo/Esquerda/Direita): ");
+            scanf("%s", direcaoCavalo);
 
-            for (cavalo = 1; cavalo <= 2; cavalo++) {
-                printf("Cavalo anda para %s\n", movimentocavalo);
-            }
-                printf("Cavalo anda para a Direita\n");
+            MoverCavalo(ladoCavalo, direcaoCavalo);
             break;
 
         default:
